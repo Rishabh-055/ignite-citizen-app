@@ -5,12 +5,15 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
+  role?: 'user' | 'admin';
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   login: (email: string, password: string) => Promise<void>;
+  adminLogin: (email: string, password: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -52,6 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         name: 'John Doe',
         email: email,
         avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+        role: 'user',
       };
       
       const mockToken = 'mock-jwt-token-' + Date.now();
@@ -66,6 +70,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const adminLogin = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      // Mock admin authentication - in real app, call your API
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      
+      const mockAdmin: User = {
+        id: 2,
+        name: 'Admin User',
+        email: email,
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+        role: 'admin',
+      };
+      
+      const mockToken = 'mock-admin-token-' + Date.now();
+      
+      localStorage.setItem('user', JSON.stringify(mockAdmin));
+      localStorage.setItem('token', mockToken);
+      setUser(mockAdmin);
+    } catch (error) {
+      throw new Error('Invalid admin credentials');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
@@ -75,7 +105,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value = {
     user,
     isAuthenticated: !!user,
+    isAdmin: !!user && user.role === 'admin',
     login,
+    adminLogin,
     logout,
     loading,
   };

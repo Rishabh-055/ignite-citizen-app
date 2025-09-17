@@ -10,7 +10,7 @@ import { toast } from '@/hooks/use-toast';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, loading } = useAuth();
+  const { login, adminLogin, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -40,6 +40,32 @@ export default function Login() {
       toast({
         title: "Login failed",
         description: "Invalid email or password. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAdminLogin = async () => {
+    if (!formData.email || !formData.password) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all fields for admin login.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      await adminLogin(formData.email, formData.password);
+      toast({
+        title: "Admin access granted!",
+        description: "You have successfully logged in as admin.",
+      });
+      navigate('/dashboard');
+    } catch (error) {
+      toast({
+        title: "Admin login failed",
+        description: "Invalid admin credentials. Please try again.",
         variant: "destructive",
       });
     }
@@ -123,6 +149,17 @@ export default function Login() {
               <p className="text-sm text-muted-foreground">
                 Demo credentials: any email and password will work
               </p>
+            </div>
+
+            <div className="mt-6">
+              <Button
+                onClick={handleAdminLogin}
+                variant="outline"
+                className="w-full mb-4"
+                disabled={loading}
+              >
+                Continue as Admin
+              </Button>
             </div>
 
             <div className="mt-6 text-center">
