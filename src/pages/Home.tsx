@@ -96,7 +96,7 @@ export default function Home() {
                 <h2 className="text-2xl font-bold text-content-box-foreground mb-6">
                   Report Status
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-secondary p-4 rounded-lg">
                   <Card className="bg-secondary">
                     <CardContent className="p-6 text-center">
                       <AlertCircle className="h-12 w-12 text-orange-500 mx-auto mb-4" />
