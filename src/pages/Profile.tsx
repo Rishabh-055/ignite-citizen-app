@@ -127,6 +127,76 @@ export default function Profile() {
           </CardContent>
         </Card>
 
+        {/* Coin & Voucher System */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-center">Rewards & Vouchers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {/* Coin Balance */}
+              <div className="text-center">
+                <div className="bg-yellow-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">🪙</span>
+                </div>
+                <h3 className="text-3xl font-bold text-foreground mb-2">
+                  {totalReports * 10}
+                </h3>
+                <p className="text-muted-foreground">Total Coins Earned</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Earn 10 coins per reported issue
+                </p>
+              </div>
+
+              {/* Voucher Conversion */}
+              <div className="bg-muted/50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-semibold text-foreground">Convert coins to vouchers</h4>
+                  <span className="text-sm text-muted-foreground">100 coins = 1 voucher</span>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Available vouchers:</span>
+                    <span className="font-semibold text-foreground">
+                      {Math.floor((totalReports * 10) / 100)}
+                    </span>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  <div className="w-full bg-secondary rounded-full h-2">
+                    <div 
+                      className="bg-primary h-2 rounded-full transition-all duration-300"
+                      style={{ 
+                        width: `${((totalReports * 10) % 100)}%`
+                      }}
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>{(totalReports * 10) % 100} coins</span>
+                    <span>Next voucher in {100 - ((totalReports * 10) % 100)} coins</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Voucher Benefits */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                  <span className="text-2xl mb-2 block">🎟️</span>
+                  <p className="text-sm font-medium text-green-800">Food Vouchers</p>
+                  <p className="text-xs text-green-600">Redeem at local restaurants</p>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+                  <span className="text-2xl mb-2 block">🛍️</span>
+                  <p className="text-sm font-medium text-blue-800">Shopping Vouchers</p>
+                  <p className="text-xs text-blue-600">Use at partner stores</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <Separator className="my-8" />
 
         {/* Reported Issues */}
