@@ -12,8 +12,8 @@ export default function Profile() {
 
   // Mock user data
   const user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'Vishvash Patil',
+    email: 'vishvash@example.com',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     joinDate: '2024-01-01',
   };
