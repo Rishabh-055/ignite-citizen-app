@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Bell, User, LogOut, Home, FileText, UserCircle, Bot, Sun, Moon } from 'lucide-react';
+import { Menu, X, Bell, User, LogOut, Home, FileText, UserCircle, Bot, Sun, Moon, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [language, setLanguage] = useState('English');
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
@@ -32,6 +33,13 @@ export const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const changeLanguage = () => {
+    const languages = ['English', 'Spanish', 'French', 'German'];
+    const currentIndex = languages.indexOf(language);
+    const nextIndex = (currentIndex + 1) % languages.length;
+    setLanguage(languages[nextIndex]);
   };
 
   if (!isAuthenticated) {
@@ -136,6 +144,10 @@ export const Navbar = () => {
                     <UserCircle className="mr-2 h-4 w-4" />
                     Profile
                   </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={changeLanguage}>
+                  <Languages className="mr-2 h-4 w-4" />
+                  Language ({language})
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
