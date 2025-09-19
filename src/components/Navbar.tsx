@@ -16,7 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
-  const [language, setLanguage] = useState('English');
+  const [language, setLanguage] = useState('Hindi');
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
@@ -42,7 +42,7 @@ export const Navbar = () => {
     setLanguage(newLanguage);
   };
 
-  const languages = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
+  const languages = ['Hindi', 'Marathi', 'Gujarati', 'Urdu', 'Tamil', 'Telugu', 'Bengali', 'Punjabi', 'Malayalam', 'Kannada', 'Odia', 'English'];
 
   if (!isAuthenticated) {
     return (
