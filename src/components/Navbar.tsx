@@ -6,6 +6,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
@@ -35,12 +38,11 @@ export const Navbar = () => {
     navigate('/');
   };
 
-  const changeLanguage = () => {
-    const languages = ['English', 'Spanish', 'French', 'German'];
-    const currentIndex = languages.indexOf(language);
-    const nextIndex = (currentIndex + 1) % languages.length;
-    setLanguage(languages[nextIndex]);
+  const changeLanguage = (newLanguage: string) => {
+    setLanguage(newLanguage);
   };
+
+  const languages = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
 
   if (!isAuthenticated) {
     return (
@@ -145,10 +147,23 @@ export const Navbar = () => {
                     Profile
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={changeLanguage}>
-                  <Languages className="mr-2 h-4 w-4" />
-                  Language ({language})
-                </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="flex items-center">
+                    <Languages className="mr-2 h-4 w-4" />
+                    Language ({language})
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="bg-card">
+                    {languages.map((lang) => (
+                      <DropdownMenuItem
+                        key={lang}
+                        onClick={() => changeLanguage(lang)}
+                        className={language === lang ? "bg-accent" : ""}
+                      >
+                        {lang}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Log out
